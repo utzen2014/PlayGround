@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#071116" />
+    <meta name="description" content="Apex Drive — 3D arcade yarış deneyimi." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23071116'/%3E%3Cpath d='M32 9 57 55H44l-4-9H24l-4 9H7L32 9Zm0 20-5 11h10l-5-11Z' fill='%2347e1d2'/%3E%3C/svg%3E" />
+    <title>APEX DRIVE — Street Racing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script type="module" crossorigin src="/assets/index-BW5V7tv5.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BB3NTy-m.css">
+  </head>
+  <body>
+    <div id="game-root">
+      <canvas id="game-canvas" aria-label="3 boyutlu yarış pisti"></canvas>
+      <div class="world-vignette"></div>
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Apex Drive ana sayfa"><span class="brand-mark">A</span><span class="brand-copy">APEX<span>DRIVE</span></span></a>
+        <div class="top-center"><span class="live-dot"></span><span>SEZON 04</span><i></i><span>STREET SERIES</span></div>
+        <div class="wallet"><span class="coin-icon">◆</span><span id="coin-balance">250</span><span class="wallet-label">COIN</span></div>
+      </header>
+
+      <main class="menu-screen" id="menu-screen">
+        <section class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> ASFALT SENİ BEKLİYOR</div>
+          <h1>LIMITLERİ<br /><em>YENİDEN ÇİZ.</em></h1>
+          <p>Motorunu çalıştır. Çizgini seç. Şehrin en hızlısı ol.</p>
+        </section>
+
+        <section class="garage-panel panel-glass">
+          <div class="section-heading"><div><span class="step-index">01</span><h2>ARACINI SEÇ</h2></div><span class="garage-count" id="garage-count">01 / 03</span></div>
+          <div class="car-name-row"><div><h3 id="car-name">SPRINT GT</h3><span class="car-class" id="car-class">STREET CLASS · 280 HP</span></div><span class="car-price" id="car-price"></span></div>
+          <div class="car-stats" id="car-stats"></div>
+          <div class="car-actions"><button class="arrow-btn" id="car-prev" aria-label="Önceki araç">‹</button><div class="car-dots" id="car-dots"></div><button class="arrow-btn" id="car-next" aria-label="Sonraki araç">›</button><button class="buy-btn hidden" id="buy-car">◆ <span>ARACI AL</span></button></div>
+          <div class="garage-note" id="garage-note"><span class="tiny-check">✓</span> GARAJINDA</div>
+        </section>
+
+        <section class="track-panel panel-glass">
+          <div class="section-heading"><div><span class="step-index">02</span><h2>PİSTİNİ SEÇ</h2></div><span class="track-total">3 PİST</span></div>
+          <div class="track-list" id="track-list"></div>
+        </section>
+
+        <div class="start-row"><button class="start-btn" id="start-race"><span>YARIŞA BAŞLA</span><b>↗</b></button><div class="start-hint"><span>⏱</span><span>3 TUR · ARCADE MODU</span></div></div>
+        <div class="menu-footer"><span>© APEX DRIVE RACING</span><span>WASD / OKLAR <i>·</i> MOBİLDE DOKUN</span></div>
+      </main>
+
+      <section class="race-hud hidden" id="race-hud" aria-live="polite">
+        <div class="race-top-left hud-card"><span class="hud-kicker">POZİSYON</span><strong><span id="position">1</span><small>ST</small></strong></div>
+        <div class="race-top-center"><div class="race-track-name" id="race-track-name">NEON LIMANI</div><div class="lap-readout">TUR <b id="lap-count">1</b><span>/ 3</span></div><div class="lap-bar"><i id="lap-progress"></i></div></div>
+        <div class="race-top-right hud-card"><span class="hud-kicker">TOPLANAN</span><strong class="hud-coins">◆ <span id="race-coins">0</span></strong></div>
+        <div class="speed-card"><div class="speed-number"><span id="speed-value">000</span><small>KM/H</small></div><div class="speed-meter"><i id="speed-meter-fill"></i></div><div class="speed-label">APEX <b>DRIVE</b></div></div>
+        <div class="race-hint"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>SÜRÜŞ</span><button id="pause-button" aria-label="Duraklat">Ⅱ</button></div>
+        <div class="touch-controls" aria-label="Dokunmatik sürüş kontrolleri"><button class="touch-steer" data-control="steer-left" aria-label="Sola dön">‹</button><div><button class="touch-pedal" data-control="accelerate" aria-label="Gaz">▲<small>GAZ</small></button><button class="touch-pedal brake" data-control="brake" aria-label="Fren">▼<small>FREN</small></button></div><button class="touch-steer" data-control="steer-right" aria-label="Sağa dön">›</button></div>
+      </section>
+
+      <section class="countdown hidden" id="countdown"><span>HAZIR</span><b id="countdown-number">3</b></section>
+      <section class="pause-overlay hidden" id="pause-overlay"><div class="pause-card panel-glass"><span class="eyebrow">PİT STOP</span><h2>NEFESLEN.</h2><p>Motorun hâlâ sıcak.</p><button class="start-btn" id="resume-race"><span>DEVAM ET</span><b>↗</b></button><button class="text-button" id="exit-race">GARAJA DÖN</button></div></section>
+      <section class="result-overlay hidden" id="result-overlay"><div class="result-card panel-glass"><span class="result-icon">✦</span><span class="eyebrow">DAMALI BAYRAK</span><h2 id="result-title">GÜZEL SÜRÜŞ!</h2><p id="result-copy">Pisti tamamladın.</p><div class="result-reward"><span>YARIŞ ÖDÜLÜ</span><b>+<i id="reward-amount">0</i> ◆</b></div><button class="start-btn" id="back-to-garage"><span>GARAJA DÖN</span><b>↗</b></button></div></section>
+      <div class="toast hidden" id="toast"></div>
+      <div class="loading-screen" id="loading-screen"><div class="loader-mark">A</div><span>PIST HAZIRLANIYOR</span><i></i></div>
+    </div>
+  </body>
+</html>
